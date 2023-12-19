@@ -52,7 +52,7 @@ def welcome():
 def precipitation():
     session = Session(engine)
     recent_date = session.query(Measurement.date).order_by(Measurement.date.desc()).first()[0]
-    one_year_ago = dt.datetime.strptime(recent_date, '%Y-%m-%d') - dt.timedelta(days=365)
+    one_year_ago = dt.datetime.strptime(recent_date, '%Y-%m-%d') - dt.timedelta(days=366)
 
     results = session.query(Measurement.date, Measurement.prcp).\
         filter(Measurement.date >= one_year_ago).all()
