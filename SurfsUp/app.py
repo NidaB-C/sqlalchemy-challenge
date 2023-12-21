@@ -75,7 +75,7 @@ def stations():
 def tobs():
     session = Session(engine)
     recent_date = session.query(Measurement.date).order_by(Measurement.date.desc()).first()[0]
-    one_year_ago = dt.datetime.strptime(recent_date, '%Y-%m-%d') - dt.timedelta(days=365)
+    one_year_ago = dt.datetime.strptime(recent_date, '%Y-%m-%d') - dt.timedelta(days=366)
 
     most_active_station = session.query(Measurement.station).\
         group_by(Measurement.station).\
