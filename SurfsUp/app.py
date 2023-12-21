@@ -45,8 +45,8 @@ def precipitation():
     session = Session(engine)
     # Query to find the most recent date in the dataset
     recent_date = session.query(Measurement.date).order_by(Measurement.date.desc()).first()[0]
-    # Calculating the date one year before the most recent date
-    one_year_ago = dt.datetime.strptime(recent_date, '%Y-%m-%d') - dt.timedelta(days=365)
+    # Calculating the date one year before the most recent date - NB: 2016 was a leap year
+    one_year_ago = dt.datetime.strptime(recent_date, '%Y-%m-%d') - dt.timedelta(days=366)
 
     # Query for precipitation data after the calculated date
     results = session.query(Measurement.date, Measurement.prcp).filter(Measurement.date >= one_year_ago).all()
@@ -75,7 +75,7 @@ def tobs():
     session = Session(engine)
     most_active_station = 'USC00519281'  # Hardcoded the most active station for the query
     recent_date = session.query(Measurement.date).order_by(Measurement.date.desc()).first()[0]
-    one_year_ago = dt.datetime.strptime(recent_date, '%Y-%m-%d') - dt.timedelta(days=365)
+    one_year_ago = dt.datetime.strptime(recent_date, '%Y-%m-%d') - dt.timedelta(days=366)
 
     # Query for TOBS data for the most active station after the calculated date
     results = session.query(Measurement.date, Measurement.tobs).\
